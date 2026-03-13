@@ -29,7 +29,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="relative text-sm font-medium text-slate-600 transition-colors hover:text-[#0d9488] lg:text-base"
+                className="relative text-sm font-medium text-black transition-colors hover:text-[#0d9488] lg:text-base"
               >
                 <span className="after:absolute after:-bottom-0.5 after:left-0 after:h-0.5 after:w-0 after:bg-[#0d9488] after:transition-all after:duration-300 hover:after:w-full">
                   {link.label}
@@ -59,7 +59,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="relative text-sm font-medium text-slate-600 transition-colors hover:text-[#0d9488] lg:text-base"
+                className="relative text-sm font-medium text-black transition-colors hover:text-[#0d9488] lg:text-base"
               >
                 <span className="after:absolute after:-bottom-0.5 after:left-0 after:h-0.5 after:w-0 after:bg-[#0d9488] after:transition-all after:duration-300 hover:after:w-full">
                   {link.label}
