@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
 import Footer from "../Footer";
-import { 
-  MessageSquare, 
-  Search, 
-  UserCheck, 
-  CreditCard, 
-  Package, 
-  Truck, 
+import {
+  MessageSquare,
+  Search,
+  UserCheck,
+  CreditCard,
+  Package,
+  Truck,
   ArrowRight,
   ShieldCheck,
   Clock,
@@ -93,7 +93,7 @@ export default function DeliveryProcessPage() {
               Our Delivery Process
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-xl text-teal-50">
-              Personalized care from the moment you contact us. We handle every 
+              Personalized care from the moment you contact us. We handle every
               step to ensure your medicines arrive safely and on time.
             </p>
           </div>
@@ -177,7 +177,7 @@ export default function DeliveryProcessPage() {
               </div>
               <div className="rounded-3xl border-2 border-slate-200 bg-white p-10 hover:border-orange-400 transition-colors">
                 <h3 className="text-xl font-bold text-slate-900 underline decoration-orange-500 decoration-3 underline-offset-4">Scenario B: Urgent Requests</h3>
-                <p className="mt-4 text-slate-600">For urgent medical needs, we prioritize your contact form response. Our team attempts to reach out within 2-4 hours to expedite the delivery.</p>
+                <p className="mt-4 text-slate-600">For urgent medical needs, we prioritize your contact form response. Our team attempts to reach out within over night to expedite the delivery.</p>
               </div>
             </div>
           </div>
