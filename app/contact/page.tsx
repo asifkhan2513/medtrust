@@ -61,7 +61,7 @@ export default function ContactPage() {
       // Ensure API URL is correctly handled
       const apiUrl =
         process.env.NEXT_PUBLIC_API_URL ||
-        "https://medtrust-v4i0.onrender.com/";
+        "https://medtrust-v4i0.onrender.com";
 
       const response = await axios.post(
         `${apiUrl}/api/v1/response/create`,
