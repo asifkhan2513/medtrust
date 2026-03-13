@@ -59,13 +59,19 @@ export default function ContactPage() {
       };
 
       // Ensure API URL is correctly handled
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+      const apiUrl =
+        process.env.NEXT_PUBLIC_API_URL ||
+        "https://medtrust-v4i0.onrender.com/";
 
-      const response = await axios.post(`${apiUrl}/api/v1/response/create`, payload, {
-        headers: {
-          "Content-Type": "application/json",
+      const response = await axios.post(
+        `${apiUrl}/api/v1/response/create`,
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
         },
-      });
+      );
 
       if (response.data?.success) {
         toast.success(
@@ -92,7 +98,6 @@ export default function ContactPage() {
 
   return (
     <>
-
       <main className="min-h-screen bg-[#f8fafc]">
         {/* Contact Form Section */}
         <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
