@@ -33,6 +33,10 @@ app.use(express.urlencoded({ extended: true }));
 // routes
 app.use("/api/v1/response", responseRoutes);
 
+// get respose
+app.get("/", (req, res) => {
+  res.send("server is running");
+});
 // server listening
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
