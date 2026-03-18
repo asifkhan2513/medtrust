@@ -14,8 +14,12 @@ connect();
 // cors
 app.use(
   cors({
-    origin: [process.env.FRONTEND_URL, "http://localhost:3000"],
+    origin: function (origin, callback) {
+      // Allow any origin and reflect it back to fully support CORS + credentials
+      callback(null, origin || true);
+    },
     credentials: true,
+    optionsSuccessStatus: 200
   })
 );
 
