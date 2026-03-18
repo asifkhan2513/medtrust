@@ -61,8 +61,15 @@ export default function ContactPage() {
 
       // Ensure API URL is correctly handled
       console.time("for loop")
-      const apiUrl =
+      let apiUrl =
+        process.env.NEXT_PUBLIC_API_URL ||
         "http://13.63.106.0:5000";
+
+      // If accessing from an HTTPS frontend to an HTTP backend, use Next.js rewrites (relative URL)
+      // to avoid 'Mixed Content' errors blocked by the browser.
+      if (typeof window !== "undefined" && window.location.protocol === "https:" && apiUrl.startsWith("http://")) {
+        apiUrl = "";
+      }
 
       console.log("This my backend url from fronend", apiUrl);
       const response = await axios.post(
