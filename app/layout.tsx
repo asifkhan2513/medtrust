@@ -4,9 +4,6 @@ import { Toaster } from "react-hot-toast";
 import { Jura } from 'next/font/google';
 import "./globals.css";
 import Navbar from "./Navbar";
-
-
-
 const jura = Jura({
   subsets: ['latin'],
   variable: '--font-jura',
@@ -30,9 +27,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${jura.className} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
       >
         <Navbar />
         {children}

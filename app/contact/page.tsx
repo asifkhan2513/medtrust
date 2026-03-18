@@ -5,6 +5,7 @@ import * as countryCodes from "country-codes-list";
 import Footer from "../Footer";
 import { SubmitHandler, useForm } from "react-hook-form";
 import axios from "axios";
+
 type ContactFormValues = {
   name: string;
   email: string;
@@ -41,7 +42,7 @@ export default function ContactPage() {
       name: "",
       email: "",
       phone: "",
-      country: "",
+      country: "United States of America",
       city: "",
       message: "",
     },
@@ -59,10 +60,12 @@ export default function ContactPage() {
       };
 
       // Ensure API URL is correctly handled
+      console.time("for loop")
       const apiUrl =
         process.env.NEXT_PUBLIC_API_URL ||
-        "https://medtrust-v4i0.onrender.com";
+        "http://13.63.106.0:5000";
 
+      console.log("This my backend url from fronend", apiUrl);
       const response = await axios.post(
         `${apiUrl}/api/v1/response/create`,
         payload,
@@ -94,6 +97,7 @@ export default function ContactPage() {
         toast.error(error.message || "Something went wrong. Please try again.");
       }
     }
+    console.timeEnd("for loop")
   };
 
   return (
@@ -101,7 +105,7 @@ export default function ContactPage() {
       <main className="min-h-screen bg-[#f8fafc]">
         {/* Contact Form Section */}
         <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
-          <div className="rounded-2xl bg-white p-6 shadow-xl sm:p-10 border border-slate-100">
+          <div className="rounded-2xl bg-white p-6 shadow-2xl sm:p-10 border-2 border-black/40">
             <div className="mb-8">
               <h1 className="text-3xl font-bold text-slate-900 tracking-tight">
                 Contact Us
@@ -117,7 +121,7 @@ export default function ContactPage() {
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-sm font-semibold text-slate-700 mb-1"
+                  className="block text-sm font-semibold text-slate-700 mb-1 cursor-pointer"
                 >
                   Name <span className="text-red-500">*</span>
                 </label>
@@ -136,10 +140,10 @@ export default function ContactPage() {
                       message: "Name is too long",
                     },
                   })}
-                  className={`block w-full rounded-lg border px-4 py-3 text-slate-900 transition-all outline-none
+                  className={`block w-full rounded-lg border px-4 py-3 text-slate-900 transition-all outline-none cursor-text
                     ${errors.name
                       ? "border-red-300 focus:border-red-500 focus:ring-4 focus:ring-red-50"
-                      : "border-slate-300 focus:border-[#0d9488] focus:ring-4 focus:ring-teal-50"
+                      : "border-slate-300 hover:border-slate-400 focus:border-[#0d9488] focus:ring-4 focus:ring-teal-50"
                     }`}
                   placeholder="Enter your full name"
                 />
@@ -150,44 +154,67 @@ export default function ContactPage() {
                 )}
               </div>
 
-              {/* Email and Phone Grid */}
+              {/* Email Field */}
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-semibold text-slate-700 mb-1 cursor-pointer"
+                >
+                  Email <span className="text-red-500">*</span>
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  disabled={isSubmitting}
+                  {...register("email", {
+                    required: "Email is required",
+                    pattern: {
+                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                      message: "Please enter a valid email address",
+                    },
+                  })}
+                  className={`block w-full rounded-lg border px-4 py-3 text-slate-900 transition-all outline-none cursor-text
+                    ${errors.email
+                      ? "border-red-300 focus:border-red-500 focus:ring-4 focus:ring-red-50"
+                      : "border-slate-300 hover:border-slate-400 focus:border-[#0d9488] focus:ring-4 focus:ring-teal-50"
+                    }`}
+                  placeholder="name@example.com"
+                />
+                {errors.email && (
+                  <p className="mt-1.5 text-xs font-medium text-red-500">
+                    {errors.email.message}
+                  </p>
+                )}
+              </div>
+
+              {/* Country and Phone Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label
-                    htmlFor="email"
-                    className="block text-sm font-semibold text-slate-700 mb-1"
+                    htmlFor="country"
+                    className="block text-sm font-semibold text-slate-700 mb-1 cursor-pointer"
                   >
-                    Email <span className="text-red-500">*</span>
+                    Country Code
                   </label>
-                  <input
-                    id="email"
-                    type="email"
+                  <select
+                    id="country"
                     disabled={isSubmitting}
-                    {...register("email", {
-                      required: "Email is required",
-                      pattern: {
-                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                        message: "Please enter a valid email address",
-                      },
-                    })}
-                    className={`block w-full rounded-lg border px-4 py-3 text-slate-900 transition-all outline-none
-                      ${errors.email
-                        ? "border-red-300 focus:border-red-500 focus:ring-4 focus:ring-red-50"
-                        : "border-slate-300 focus:border-[#0d9488] focus:ring-4 focus:ring-teal-50"
-                      }`}
-                    placeholder="name@example.com"
-                  />
-                  {errors.email && (
-                    <p className="mt-1.5 text-xs font-medium text-red-500">
-                      {errors.email.message}
-                    </p>
-                  )}
+                    {...register("country")}
+                    className="block w-full rounded-lg border border-slate-300 hover:border-slate-400 px-4 py-3 text-slate-900 outline-none focus:border-[#0d9488] focus:ring-4 focus:ring-teal-50 transition-all appearance-none bg-white cursor-pointer"
+                  >
+                    <option value="">Select your country</option>
+                    {countryOptions.map((c) => (
+                      <option key={c.value} value={c.value}>
+                        {c.label}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
                 <div>
                   <label
                     htmlFor="phone"
-                    className="block text-sm font-semibold text-slate-700 mb-1"
+                    className="block text-sm font-semibold text-slate-700 mb-1 cursor-pointer"
                   >
                     Phone
                   </label>
@@ -201,12 +228,12 @@ export default function ContactPage() {
                         message: "Please enter a valid phone number",
                       },
                     })}
-                    className={`block w-full rounded-lg border px-4 py-3 text-slate-900 transition-all outline-none
+                    className={`block w-full rounded-lg border px-4 py-3 text-slate-900 transition-all outline-none cursor-text
                       ${errors.phone
                         ? "border-red-300 focus:border-red-500 focus:ring-4 focus:ring-red-50"
-                        : "border-slate-300 focus:border-[#0d9488] focus:ring-4 focus:ring-teal-50"
+                        : "border-slate-300 hover:border-slate-400 focus:border-[#0d9488] focus:ring-4 focus:ring-teal-50"
                       }`}
-                    placeholder="+1 (555) 000-0000"
+                    placeholder="555-000-0000"
                   />
                   {errors.phone && (
                     <p className="mt-1.5 text-xs font-medium text-red-500">
@@ -216,63 +243,39 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/* Country and City Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label
-                    htmlFor="country"
-                    className="block text-sm font-semibold text-slate-700 mb-1"
-                  >
-                    Country
-                  </label>
-                  <select
-                    id="country"
-                    disabled={isSubmitting}
-                    {...register("country")}
-                    className="block w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-900 outline-none focus:border-[#0d9488] focus:ring-4 focus:ring-teal-50 transition-all appearance-none bg-white"
-                  >
-                    <option value="">Select your country</option>
-                    {countryOptions.map((c) => (
-                      <option key={c.value} value={c.value}>
-                        {c.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="city"
-                    className="block text-sm font-semibold text-slate-700 mb-1"
-                  >
-                    City / State
-                  </label>
-                  <input
-                    id="city"
-                    type="text"
-                    disabled={isSubmitting}
-                    {...register("city", {
-                      maxLength: {
-                        value: 80,
-                        message: "Text is too long",
-                      },
-                    })}
-                    className="block w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-900 outline-none focus:border-[#0d9488] focus:ring-4 focus:ring-teal-50 transition-all"
-                    placeholder="City or State"
-                  />
-                  {errors.city && (
-                    <p className="mt-1.5 text-xs font-medium text-red-500">
-                      {errors.city.message}
-                    </p>
-                  )}
-                </div>
+              {/* City Field */}
+              <div>
+                <label
+                  htmlFor="city"
+                  className="block text-sm font-semibold text-slate-700 mb-1 cursor-pointer"
+                >
+                  City / State
+                </label>
+                <input
+                  id="city"
+                  type="text"
+                  disabled={isSubmitting}
+                  {...register("city", {
+                    maxLength: {
+                      value: 80,
+                      message: "Text is too long",
+                    },
+                  })}
+                  className="block w-full rounded-lg border border-slate-300 hover:border-slate-400 px-4 py-3 text-slate-900 outline-none focus:border-[#0d9488] focus:ring-4 focus:ring-teal-50 transition-all cursor-text"
+                  placeholder="City or State"
+                />
+                {errors.city && (
+                  <p className="mt-1.5 text-xs font-medium text-red-500">
+                    {errors.city.message}
+                  </p>
+                )}
               </div>
 
               {/* Message Field */}
               <div>
                 <label
                   htmlFor="message"
-                  className="block text-sm font-semibold text-slate-700 mb-1"
+                  className="block text-sm font-semibold text-slate-700 mb-1 cursor-pointer"
                 >
                   Message / Inquiry <span className="text-red-500">*</span>
                 </label>
@@ -291,10 +294,10 @@ export default function ContactPage() {
                       message: "Message is too long (max 2000 chars)",
                     },
                   })}
-                  className={`block w-full rounded-lg border px-4 py-3 text-slate-900 transition-all outline-none resize-none
+                  className={`block w-full rounded-lg border px-4 py-3 text-slate-900 transition-all outline-none resize-none cursor-text
                     ${errors.message
                       ? "border-red-300 focus:border-red-500 focus:ring-4 focus:ring-red-50"
-                      : "border-slate-300 focus:border-[#0d9488] focus:ring-4 focus:ring-teal-50"
+                      : "border-slate-300 hover:border-slate-400 focus:border-[#0d9488] focus:ring-4 focus:ring-teal-50"
                     }`}
                   placeholder="How can we help you today?"
                 />
@@ -309,7 +312,7 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="group relative w-full overflow-hidden rounded-lg bg-[#0f766e] px-8 py-4 font-semibold text-white shadow-lg transition-all hover:bg-[#115e59] hover:shadow-teal-300/40 disabled:cursor-not-allowed disabled:opacity-70 active:scale-[0.98]"
+                className="group relative w-full overflow-hidden rounded-lg bg-[#0f766e] px-8 py-4 font-semibold text-white shadow-lg transition-all hover:bg-[#115e59] hover:shadow-teal-300/40 disabled:cursor-not-allowed disabled:opacity-70 active:scale-[0.98] cursor-pointer"
               >
                 <div className="relative flex items-center justify-center gap-2">
                   {isSubmitting ? (
