@@ -62,7 +62,6 @@ export default function ContactPage() {
       // Ensure API URL is correctly handled
       console.time("for loop")
       const apiUrl =
-        process.env.NEXT_PUBLIC_API_URL ||
         "http://13.63.106.0:5000";
 
       console.log("This my backend url from fronend", apiUrl);
