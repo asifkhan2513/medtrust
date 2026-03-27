@@ -71,7 +71,7 @@ export default function ContactPage() {
         apiUrl = "";
       }
 
-      console.log("This my backend url from fronend", apiUrl);
+      
       const response = await axios.post(
         `${apiUrl}/api/v1/response/create`,
         payload,

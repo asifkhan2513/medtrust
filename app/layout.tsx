@@ -4,6 +4,8 @@ import { Toaster } from "react-hot-toast";
 import { Jura } from 'next/font/google';
 import "./globals.css";
 import Navbar from "./Navbar";
+import WhatsAppButton from "./WhatsAppButton";
+
 const jura = Jura({
   subsets: ['latin'],
   variable: '--font-jura',
@@ -34,6 +36,7 @@ export default function RootLayout({
       >
         <Navbar />
         {children}
+        <WhatsAppButton />
         <Toaster position="top-center" />
       </body>
     </html>

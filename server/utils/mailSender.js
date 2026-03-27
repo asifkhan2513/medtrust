@@ -21,7 +21,7 @@ const mailSender = async (toEmail, subject, body) => {
       html: body,
     });
 
-    console.log("Email sent:", info.messageId);
+   
     return info;
   } catch (err) {
     console.error("Mail send error:", err.message);

@@ -53,7 +53,7 @@ export default function Carousel() {
           Trusted Medicine,{" "}
           <span className="text-[#5eead4]">Better Health</span>
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-base font-medium text-white/95 drop-shadow-md sm:text-lg md:text-xl">
+        <p className="mx-auto mt-4 max-w-2xl text-base font-medium text-black drop-shadow-md sm:text-lg md:text-xl">
           Quality pharmaceutical products and reliable healthcare solutions you can trust
         </p>
         <Link

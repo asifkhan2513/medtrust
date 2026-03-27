@@ -41,7 +41,7 @@ exports.createResponse = async (req, res) => {
     if (adminEmail && process.env.MAIL_PASS) {
       try {
         await mailSender(adminEmail, subject, htmlBody);
-        console.log("Contact form email sent to:", adminEmail);
+
       } catch (mailErr) {
         console.error("Failed to send contact form email:", mailErr.message);
         // Response still saved - email failure logged
